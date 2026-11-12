@@ -48,16 +48,18 @@ nav{height:64px;display:flex;align-items:center;justify-content:space-between;pa
 main{position:relative;z-index:2}
 section{padding:30px 0}
 .hd{margin-bottom:24px}.hd h2{font-size:clamp(26px,4vw,38px)}.hd p{color:var(--mute)}
-/* portallar */
-.portals{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-@media(max-width:900px){.portals{grid-template-columns:1fr}}
-.pc{cursor:pointer;text-align:left;font:inherit;color:inherit;background:var(--surf);border:1px solid var(--line);border-radius:24px;padding:14px 14px 20px;box-shadow:0 18px 40px var(--sh);transition:transform .3s,box-shadow .3s}
-.pc:hover{transform:translateY(-8px) rotateX(3deg)}
+/* portallar: 3D suyuq oyna */
+.portals{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;perspective:1100px}
+@media(max-width:1000px){.portals{grid-template-columns:repeat(2,1fr)}}
+.pc{position:relative;cursor:pointer;text-align:left;font:inherit;color:inherit;background:linear-gradient(135deg,var(--g1),var(--g2));backdrop-filter:blur(20px) saturate(1.9) brightness(1.04);-webkit-backdrop-filter:blur(20px) saturate(1.9) brightness(1.04);border:1px solid var(--gb);border-radius:26px;padding:14px 14px 20px;box-shadow:inset 0 1.5px 0 var(--gb),inset 0 -10px 22px var(--g2),inset 0 0 0 1px var(--g2),0 18px 40px var(--sh),0 3px 0 var(--sh);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out,box-shadow .3s}
+.pc::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at var(--mx,30%) var(--my,0%),rgba(255,255,255,.55),transparent 55%),linear-gradient(115deg,rgba(255,255,255,.4),transparent 35%,transparent 70%,rgba(255,255,255,.18));opacity:.55;pointer-events:none;transition:opacity .3s}
+.pc:hover{transform:translateY(-8px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));box-shadow:inset 0 1.5px 0 var(--gb),inset 0 -10px 22px var(--g2),0 28px 50px var(--sh),0 3px 0 var(--sh)}
+.pc:hover::before{opacity:.9}
 .pc.on{outline:2px solid var(--acc);outline-offset:3px}
-.pc .art{border-radius:16px;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 22%,var(--surf)),var(--surf));overflow:hidden}
+.pc .art{border:1px solid var(--gb);border-radius:18px;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 28%,transparent),transparent);overflow:hidden;box-shadow:0 12px 24px var(--sh);transform:translate(calc(var(--nx,0)*10px),calc(var(--ny,0)*8px));transition:transform .25s ease-out}
 .pc svg.art{width:100%;height:auto;display:block}
-.pc h3{font-size:24px;margin:14px 6px 4px}.pc p{color:var(--mute);font-size:14px;margin:0 6px 10px}
-.pc .go{margin:0 6px;color:var(--acc);font-weight:700;font-size:14px}
+.pc h3{font-size:24px;margin:14px 6px 4px;position:relative}.pc p{color:var(--mute);font-size:14px;margin:0 6px 10px;position:relative}
+.pc .go{margin:0 6px;color:var(--acc);font-weight:700;font-size:14px;position:relative}
 .pc:hover .go svg{animation:bob .7s infinite}
 .fl{animation:fl 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 .d1{animation-delay:-.7s}.d2{animation-delay:-1.5s}.d3{animation-delay:-2.3s}
@@ -69,6 +71,8 @@ section{padding:30px 0}
 @keyframes bar{50%{transform:scaleY(.3)}}
 .sk{animation:sk 3.4s ease-in-out infinite;transform-box:fill-box;transform-origin:bottom}
 @keyframes sk{0%,100%{transform:translateY(0)}30%{transform:translateY(-14px) rotate(-5deg)}60%{transform:translateY(0)}}
+.nd{animation:nd 3.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes nd{0%,100%{transform:rotate(-35deg)}50%{transform:rotate(40deg)}}
 .panel{position:fixed;inset:max(env(safe-area-inset-top,0px),2vh) 2vw 2vh;z-index:80;overflow-y:auto;padding:26px 0;background:var(--bg);border:1px solid var(--line);border-radius:24px;box-shadow:0 0 0 200vmax rgba(10,10,10,.55),0 30px 80px rgba(0,0,0,.45);animation:fi .5s ease both}.panel[hidden]{display:none}
 .x{position:sticky;top:0;display:grid;place-items:center;width:42px;height:42px;margin:-14px 14px -28px auto;border-radius:50%;border:1px solid var(--gb);background:var(--g1);backdrop-filter:blur(10px);color:var(--ink);cursor:pointer;z-index:5}.x:hover svg{animation:spin .8s ease}
 body.mo main{z-index:90}
@@ -107,10 +111,23 @@ body.mo main{z-index:90}
 .cv{position:absolute;inset:0;border-radius:3px 10px 10px 3px;background:var(--c);transform-origin:left center;transition:transform 1.4s cubic-bezier(.25,.7,.25,1);backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:18px 14px 14px 24px;text-align:center;color:#f6efe0;overflow:hidden}
 .cv::before{content:"";position:absolute;left:0;top:0;bottom:0;width:12px;background:linear-gradient(90deg,rgba(0,0,0,.35),rgba(255,255,255,.12))}
 .cv::after{content:"";position:absolute;inset:8px 8px 8px 20px;border:1px solid rgba(246,239,224,.35);border-radius:2px;pointer-events:none}
-.cv h3{font-size:16px;margin:auto 0;position:relative;z-index:1;padding:0 4px}
+.cv h3{font-size:16px;margin:auto 0;position:relative;z-index:1;padding:0 4px;overflow-wrap:anywhere}
 .cv span{font-size:11px;opacity:.85;position:relative;z-index:1;letter-spacing:.5px}
 .bk:hover .cv,.bk:focus-visible .cv,.bk:active .cv{transform:rotateY(-105deg)}
 .none{grid-column:1/-1;text-align:center;color:var(--mute);padding:40px 0}
+/* menga mos kasb */
+.kg{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.kb{display:flex;align-items:center;gap:10px;text-align:left;padding:13px;border-radius:16px;font:600 15px/1.25 var(--sans);color:var(--ink);cursor:pointer;background:linear-gradient(135deg,var(--g1),var(--g2));border:1px solid var(--gb);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 1.5px 0 var(--gb),0 8px 18px var(--sh);transition:transform .2s}
+.kb:hover{transform:translateY(-4px)}
+.kb i{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font:700 16px var(--serif);font-style:normal;color:#fff;background:var(--kc)}
+.kb small{display:block;font:400 11px var(--sans);color:var(--mute)}
+.nf{grid-column:1/-1;text-align:center;color:var(--mute);padding:30px 0}.nf a{color:var(--acc);font-weight:700}
+.qz{max-width:720px;margin:0 auto;background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 18px 40px var(--sh)}
+.pb{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:10px 0 20px}.pb i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--gold));transition:width .4s}
+.qz h3{font-size:22px;margin-bottom:16px}
+.op{display:block;width:100%;text-align:left;padding:13px 16px;margin-bottom:10px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;cursor:pointer;transition:.15s}
+.op:hover:not(:disabled){border-color:var(--acc)}.op.ok{background:#2e7d4f;color:#fff;border-color:#2e7d4f}.op.no{background:#b3402f;color:#fff;border-color:#b3402f}
+.res{text-align:center}.res .big{font:700 56px var(--serif)}.res .vd{font-size:20px;font-weight:700;margin:6px 0 16px}.res .btn{margin:4px}
 /* 3D kitob */
 #b3,.b3{position:fixed;left:-45px;top:-62px;width:90px;height:124px;z-index:1;pointer-events:none;transform-style:preserve-3d;will-change:transform}
 .b3 div{position:absolute;backface-visibility:visible}
@@ -127,8 +144,26 @@ footer{margin:60px auto 24px;position:relative;z-index:2}
 .ft{padding:84px 20px 26px;text-align:center;color:var(--mute);font-size:14px}
 .ft a{color:var(--acc);font-weight:600}
 #pa{display:none}
-@media print{:root{padding:0}body::before{display:none}body>*:not(#pa){display:none!important}#pa{display:block!important}#pa svg{width:100vw;height:100vh}@page{size:A4 landscape;margin:0}}
+/* telefon versiya */
+@media(max-width:700px){
+  nav{height:58px;padding:0 10px 0 14px}
+  .logo{font-size:22px;gap:8px}.logo svg{width:28px;height:28px}
+  .nl{gap:8px}.btn.tg{padding:10px 12px}.tt{display:none}
+  .hero{padding:44px 0 26px}
+  .portals{grid-template-columns:1fr;gap:12px}
+  .pc{display:grid;grid-template-columns:112px 1fr;grid-template-rows:auto auto auto;column-gap:14px;align-items:center;padding:10px;border-radius:22px}
+  .pc svg.art{grid-row:1/4;width:112px;border-radius:14px}
+  .pc h3{font-size:19px;margin:0 0 2px}.pc p{font-size:13px;margin:0 0 4px;line-height:1.4}.pc .go{margin:0;font-size:13px}
+  .shelf{grid-template-columns:repeat(3,1fr);gap:22px 12px;padding:6px 2px}
+  .bk{filter:drop-shadow(0 8px 8px var(--sh))}
+  .cv{padding:12px 6px 8px 14px}.cv h3{font-size:11.5px;padding:0}.cv span{font-size:8.5px}.cv::before{width:8px}.cv::after{inset:6px 6px 6px 12px}
+  .pg{padding:6px}.pg b{font-size:12px}.pg small{font-size:9px}.pg svg{font-size:20px}
+  .kg{grid-template-columns:1fr 1fr;gap:10px}.kb{padding:10px;font-size:13.5px;gap:8px}.kb i{width:30px;height:30px;font-size:14px}
+  .qz{padding:16px}.qz h3{font-size:19px}
+  .cnt{margin-left:0;width:100%}
+}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{:root{padding:0}body::before{display:none}body>*:not(#pa){display:none!important}#pa{display:block!important}#pa svg{width:100vw;height:100vh}@page{size:A4 landscape;margin:0}}
 </style>
 </head>
 <body>
@@ -150,7 +185,7 @@ footer{margin:60px auto 24px;position:relative;z-index:2}
 
 <header><div class="wrap"><nav class="glass" id="nv">
   <a class="logo" href="#top"><svg viewBox="0 0 40 40" fill="none" stroke="var(--gold)" stroke-width="2.4" stroke-linejoin="round"><g class="sway"><path d="M12 22l-4 14 8-4 4 6 3-12M28 22l4 14-8-4-4 6-3-12"/><circle cx="20" cy="15" r="11"/><path d="M20 9l1.8 3.7 4 .6-2.9 2.8.7 4L20 18.2l-3.6 1.9.7-4-2.9-2.8 4-.6z" fill="var(--gold)"/></g></svg>Faxr.edu</a>
-  <div class="nl"><a class="btn tg" href="https://t.me/javohir_nurmuxammadov" target="_blank" rel="noopener"><svg class="i"><use href="#tp"/></svg>Telegram kanal</a><button class="tb" id="theme" aria-label="Mavzu"><svg class="i" width="20" height="20"><use href="#mo"/></svg></button></div>
+  <div class="nl"><a class="btn tg" href="https://t.me/javohir_nurmuxammadov" target="_blank" rel="noopener" aria-label="Telegram kanal"><svg class="i"><use href="#tp"/></svg><span class="tt">Telegram kanal</span></a><button class="tb" id="theme" aria-label="Mavzu"><svg class="i" width="20" height="20"><use href="#mo"/></svg></button></div>
 </nav></div></header>
 
 <main id="top">
@@ -184,6 +219,14 @@ footer{margin:60px auto 24px;position:relative;z-index:2}
     <rect class="bar" style="animation-delay:-.2s" x="172" y="66" width="8" height="20" rx="4"/><rect class="bar" style="animation-delay:-.5s" x="188" y="48" width="8" height="54" rx="4"/><rect class="bar" style="animation-delay:-.8s" x="204" y="60" width="8" height="30" rx="4"/></g>
     <g class="fl d2" fill="#d9b365"><circle cx="46" cy="24" r="5"/><path d="M51 24V10l8 3" fill="none" stroke="#d9b365" stroke-width="2.5"/></g></svg>
     <h3>Audio kitoblar</h3><p>Video va audio shaklidagi kitoblar, tinglab oʻrganing.</p><span class="go">Ochish <svg class="i"><use href="#ar"/></svg></span></button>
+
+  <button class="pc" data-open="kasb" style="--c:#c2622d"><svg class="art" viewBox="0 0 240 150" aria-hidden="true">
+    <g class="fl d1"><circle cx="120" cy="75" r="44" fill="#fffaf0" stroke="#c2622d" stroke-width="4"/><circle cx="120" cy="75" r="34" fill="none" stroke="#c2622d" stroke-width="1.5" stroke-dasharray="3 6" opacity=".6"/>
+    <g class="nd"><path d="M120 40l9 35h-18z" fill="#c2622d"/><path d="M120 110l9-35h-18z" fill="#d9b365"/></g><circle cx="120" cy="75" r="4" fill="#2d2a26"/></g>
+    <g class="fl d2"><rect x="26" y="78" width="42" height="30" rx="4" fill="#2f6f6a"/><rect x="38" y="68" width="18" height="12" rx="3" fill="none" stroke="#2f6f6a" stroke-width="3"/><rect x="26" y="90" width="42" height="3" fill="#e6c477"/></g>
+    <g class="fl d3"><circle cx="190" cy="66" r="14" fill="#d9b365"/><rect x="183" y="78" width="14" height="8" rx="2" fill="#7b7468"/><path d="M185 64l5 6 5-6" fill="none" stroke="#fffaf0" stroke-width="2"/></g>
+    <path class="tw" d="M30 28l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#d9b365"/><path class="tw" style="animation-delay:-.9s" d="M206 30l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="#d9b365"/></svg>
+    <h3>Menga mos kasb</h3><p>Kasbni tanlang, test yeching, tayyorligingizni bilib oling.</p><span class="go">Ochish <svg class="i"><use href="#ar"/></svg></span></button>
 </div></div></section>
 
 <section id="cert" class="panel" hidden><button class="x" data-close aria-label="Yopish"><svg class="i" width="22" height="22"><use href="#cx"/></svg></button><div class="wrap">
@@ -218,6 +261,13 @@ footer{margin:60px auto 24px;position:relative;z-index:2}
   <div class="sr"><svg class="i"><use href="#se"/></svg><input id="q2" type="search" placeholder="Audio kitob yoki muallif qidiring..." aria-label="Qidirish"></div>
   <div class="tabs" id="tabs2"></div><div class="shelf" id="shelf2"></div>
 </div></section>
+
+<section id="kasb" class="panel" hidden><button class="x" data-close aria-label="Yopish"><svg class="i" width="22" height="22"><use href="#cx"/></svg></button><div class="wrap">
+  <div id="kv1"><div class="hd"><h2>Menga mos kasb</h2><p>Qiziqqan kasbingizni tanlang va test yeching: unga qanchalik tayyor ekaningizni bilib olasiz.</p></div>
+  <div class="sr"><svg class="i"><use href="#se"/></svg><input id="q3" type="search" placeholder="Kasbni qidiring..." aria-label="Kasb qidirish"></div>
+  <div class="kg" id="kg"></div></div>
+  <div id="kv2" hidden></div>
+</div></section>
 </main>
 <div id="pa"></div>
 <footer class="wrap"><div class="glass ft" id="ft">© 2026 Faxr.edu · Savol va buyurtmalar uchun: <a href="https://t.me/nurmuhammadov_javohir" target="_blank" rel="noopener">@nurmuhammadov_javohir</a> · <a href="https://t.me/javohir_nurmuxammadov" target="_blank" rel="noopener">Telegram kanal</a></div></footer>
@@ -228,12 +278,19 @@ const $=id=>document.getElementById(id),W=1123,H=794;
 $('theme').onclick=()=>{const r=document.documentElement;const d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=d?'light':'dark'};
 
 /* ---------- Bo'limlar ---------- */
-const PN=['cert','kitob','audio'];
+const PN=['cert','kitob','audio','kasb'];
 function openP(k){PN.forEach(n=>{$(n).hidden=n!==k});[].forEach.call(document.querySelectorAll('.pc'),c=>c.classList.toggle('on',c.dataset.open===k));
+ if(k==='kasb'){$('kv2').hidden=true;$('kv1').hidden=false}
  document.body.classList.add('mo');document.body.style.overflow='hidden';$(k).scrollTop=0}
 function closeP(){PN.forEach(n=>{$(n).hidden=true});document.body.classList.remove('mo');document.body.style.overflow='';[].forEach.call(document.querySelectorAll('.pc'),c=>c.classList.remove('on'))}
 [].forEach.call(document.querySelectorAll('[data-close]'),b=>b.onclick=closeP);addEventListener('keydown',e=>{if(e.key==='Escape')closeP()});
 [].forEach.call(document.querySelectorAll('[data-open]'),b=>b.onclick=()=>openP(b.dataset.open));
+
+/* 3D suyuq oyna kartalar: sichqoncha bilan qiyshayadi */
+[].forEach.call(document.querySelectorAll('.pc'),c=>{
+  c.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height,s=c.style;
+    s.setProperty('--ry',((x-.5)*14)+'deg');s.setProperty('--rx',((.5-y)*12)+'deg');s.setProperty('--mx',x*100+'%');s.setProperty('--my',y*100+'%');s.setProperty('--nx',(x-.5)*2);s.setProperty('--ny',(y-.5)*2)});
+  c.addEventListener('pointerleave',()=>['--rx','--ry','--nx','--ny'].forEach(k=>c.style.removeProperty(k)))});
 
 /* ---------- Sertifikat ---------- */
 const P=[['#fffaf0','#b08d4a','#e6c477','#3b2a20'],['#fbf9f4','#1f3a6e','#8fa6d8','#1c2640'],['#f4faf6','#1f7a56','#8fd0ae','#173a2c'],['#fff7f5','#8c2f45','#e3a1b0','#3d1a24'],
@@ -367,16 +424,97 @@ function shelf(n,fn){const src=B.filter(fn),sh=$('shelf'+n),tabs=$('tabs'+n),inp
  inp.addEventListener('input',list);list()}
 shelf(1,b=>!b.v);shelf(2,b=>b.v);
 
+/* ---------- Menga mos kasb ---------- */
+const KC={S:['#1f7a56','Salomatlik'],T:['#1d4ed8','Texnologiya va muhandislik'],E:['#7c3aed','Taʼlim va til'],B:['#b45309','Biznes va moliya'],A:['#be123c','Sanʼat va dizayn'],X:['#0e7490','Xizmat va tabiat']};
+const KP=[];`S:Shifokor,Hamshira,Stomatolog,Farmatsevt,Veterinar,Psixolog
+T:Dasturchi,Kiberxavfsizlik mutaxassisi,Elektr muhandisi,Arxitektor,Robototexnik
+E:Oʻqituvchi,Tarjimon,Jurnalist,Kutubxonachi,Tarbiyachi
+B:Buxgalter,Iqtisodchi,Tadbirkor,Marketolog,Bankir
+A:Grafik dizayner,Rassom,Musiqachi,Fotograf
+X:Huquqshunos,Pilot,Oshpaz,Agronom,Oʻt oʻchiruvchi`.split('\n').forEach(l=>{const[c,s]=l.split(':');s.split(',').forEach(n=>KP.push({c,n}))});
+const KQ={S:`Insonda yurak necha kameradan iborat?|4|2|3|6
+Qonni butun tanaga qaysi aʼzo haydaydi?|Yurak|Oshqozon|Jigar|Oʻpka
+Tish tozaligi uchun kuniga necha marta tish yuvish tavsiya etiladi?|2 marta|Haftada 1 marta|Oyda 1 marta|Hech qachon
+Tana haroratini oʻlchaydigan asbob qaysi?|Termometr|Tonometr|Mikroskop|Kompas
+Nafas olganda organizm qaysi gazni qabul qiladi?|Kislorod|Vodorod|Geliy|Azot
+Quyosh nuri taʼsirida teri qaysi vitaminni hosil qiladi?|D vitamini|C vitamini|B12 vitamini|K vitamini
+Jarohatni bogʻlashdan oldin nima qilinadi?|Toza suv va antiseptik bilan tozalanadi|Tuproq sepiladi|Ochiq qoldiriladi|Issiq moy surtiladi
+Mikroblarni koʻrish uchun qaysi asbob ishlatiladi?|Mikroskop|Teleskop|Kompas|Tarozi`,
+T:`Kompyuterning “miyasi” qaysi qism?|Protsessor|Monitor|Sichqoncha|Klaviatura
+1 bayt necha bitga teng?|8|2|10|16
+HTML nima uchun ishlatiladi?|Veb-sahifa tuzish uchun|Rasm chizish uchun|Musiqa yozish uchun|Hisob-kitob uchun
+Qaysi parol eng xavfsiz?|Uzun, harf, raqam va belgili|Ismingiz|12345|Tugʻilgan yilingiz
+Elektr zanjirida tok kuchini oʻlchaydigan asbob?|Ampermetr|Termometr|Barometr|Spidometr
+Ikkilik sanoq tizimida qaysi raqamlar ishlatiladi?|0 va 1|1 va 2|0 dan 9 gacha|Faqat 1
+Internet orqali yuboriladigan xat qanday ataladi?|Elektron pochta|Telegramma|Bandrol|Faks
+Uyning loyihasini chizadigan mutaxassis kim?|Arxitektor|Oshpaz|Tarjimon|Shifokor`,
+E:`Oʻzbek tilidagi asosiy unli harflar soni nechta?|6|5|8|10
+Darak gap oxirida qaysi belgi qoʻyiladi?|Nuqta|Vergul|Tire|Qoʻshtirnoq
+“Kitob” soʻzining koʻplik shakli qaysi?|Kitoblar|Kitobi|Kitobchi|Kitobga
+Tarjimon nima bilan shugʻullanadi?|Bir tildan boshqa tilga oʻgiradi|Dori tayyorlaydi|Bino quradi|Rasm chizadi
+Jurnalist yangilikni yozishdan oldin nima qilishi kerak?|Faktlarni tekshirishi|Oʻylab topishi|Mish-mish yozishi|Hech narsa qilmasligi
+“Tez” soʻzining maʼnodoshi qaysi?|Chaqqon|Sekin|Yaxshi|Baland
+Dars rejasi nima uchun kerak?|Darsni tartib bilan oʻtish uchun|Dam olish uchun|Uyga ketish uchun|Hech nima uchun
+Xafa boʻlgan bolaga eng yaxshi yordam qaysi?|Diqqat bilan tinglash|Ustidan kulish|Eʼtibor bermaslik|Urishish`,
+B:`Daromaddan xarajat ayirilsa nima qoladi?|Foyda|Soliq|Qarz|Zarar
+1 000 soʻmning 10% i necha soʻm?|100|10|1 000|500
+Mahsulotni xaridorlarga tanitish faoliyati qanday ataladi?|Marketing|Buxgalteriya|Qurilish|Tibbiyot
+Bank omonati nima?|Pulni foiz bilan saqlash|Pulni yoqish|Pulni yoʻqotish|Sovgʻa
+Narx keskin oshib, talab kamaysa nima boʻladi?|Sotuv kamayadi|Sotuv ortadi|Hech narsa oʻzgarmaydi|Foyda 2 baravar oshadi
+Biznes-reja nima?|Biznesni rejalashtirish hujjati|Dam olish jadvali|Oʻyin qoidasi|Dars jadvali
+Mijozga munosabatda eng muhimi nima?|Hurmat va sifatli xizmat|Baland ovoz|Kechikish|Eʼtiborsizlik
+Byudjet nima?|Daromad va xarajatlar rejasi|Qarz|Sovgʻa|Mahsulot`,
+A:`Asosiy ranglar qaysilar?|Qizil, sariq, koʻk|Yashil, qora, oq|Pushti, jigarrang, kulrang|Binafsha, toʻq sariq, yashil
+Qizil va sariq aralashsa qaysi rang chiqadi?|Toʻq sariq|Yashil|Binafsha|Qora
+Musiqada nechta asosiy nota bor?|7|5|9|12
+Yorugʻlik fotosuratga qanday taʼsir qiladi?|Rasm sifatiga taʼsir qiladi|Faqat narxga|Hech qanday|Faqat oʻlchamga
+Rasmda uzoq va yaqin masofani koʻrsatish usuli qanday ataladi?|Perspektiva|Ritm|Maqol|Ohang
+Logotip nima?|Kompaniya belgisi|Qoʻshiq|Kitob|Dori
+Montajchi nima ish qiladi?|Videoni qirqib, tartibga soladi|Bino quradi|Dori yozadi|Sud qiladi
+Rassom ranglarni aralashtirish uchun nimadan foydalanadi?|Palitra|Termos|Kalkulyator|Chelak`,
+X:`Svetoforning qizil chirogʻi nimani bildiradi?|Toʻxtash kerak|Yurish mumkin|Tezlashish kerak|Signal berish kerak
+Qonunni hurmat qilish nima degani?|Qoidalarga amal qilish|Xohlaganini qilish|Yashirish|Eʼtibor bermaslik
+Oʻsimlik oʻsishi uchun nima zarur?|Suv, yorugʻlik va tuproq|Faqat qand|Faqat qorongʻilik|Faqat shamol
+Oshpaz ovqat tayyorlashdan oldin nima qiladi?|Qoʻlini yuvadi|Qoʻlini yuvmaydi|Hech narsa qilmaydi|Idishni yerga qoʻyadi
+Samolyotni havoda ushlab turuvchi kuch qaysi?|Koʻtaruvchi kuch|Ishqalanish|Magnit|Sovuqlik
+Xonaga tutun toʻlsa nima qilinadi?|Pastga egilib chiqiladi|Tik turib yuriladi|Yashirinib oʻtiriladi|Deraza yopiladi
+Sudni kim olib boradi?|Sudya|Oshpaz|Haydovchi|Rassom
+Tabiatni asrash uchun nima qilish kerak?|Chiqindini tartib bilan tashlash|Daraxt kesish|Suvni isrof qilish|Oʻt yoqish`};
+const rn=(a,b)=>a+Math.floor(Math.random()*(b-a+1)),shf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const mk=(t,ans)=>{const s=new Set([ans]);while(s.size<4){const v=ans+rn(1,9)*(Math.random()<.5?-1:1);if(v>0)s.add(v)}return{t,a:String(ans),o:shf([...s].map(String))}};
+const GN=[()=>{const a=rn(12,60),b=rn(3,9),c=rn(2,9);return mk(`${a} + ${b} × ${c} = ?`,a+b*c)},
+()=>{const p=[10,20,25,50][rn(0,3)],n=rn(2,9)*20;return mk(`${n} ning ${p}% i nechaga teng?`,n*p/100)},
+()=>{const s=rn(2,9),d=rn(2,7);return mk(`${s}, ${s+d}, ${s+2*d}, ${s+3*d}, ... Keyingi son qaysi?`,s+4*d)},
+()=>{const a=rn(3,9),b=rn(3,9);return mk(`${a} ta daftar, har biri ${b*100} soʻmdan. Jami necha soʻm?`,a*b*100)},
+()=>{const a=rn(3,9),b=rn(3,9);return mk(`${a*b} ta olmani ${a} ta bolaga teng boʻlsak, har biriga nechtadan tegadi?`,b)}];
+const kg=$('kg'),q3=$('q3');
+function kl(){const q=nz(q3.value.trim()),r=KP.filter(p=>!q||nz(p.n).indexOf(q)>=0);
+ kg.innerHTML=r.length?'':'<div class="nf">Bunday kasb hali bizda qoʻshilmagan. Qoʻshtirmoqchi boʻlsangiz <a href="https://t.me/nurmuhammadov_javohir" target="_blank" rel="noopener">@nurmuhammadov_javohir</a> ga murojaat qiling.</div>';
+ r.forEach(p=>{const b=document.createElement('button');b.className='kb';b.style.setProperty('--kc',KC[p.c][0]);b.innerHTML=`<i>${p.n[0]}</i><span>${p.n}<small>${KC[p.c][1]}</small></span>`;b.onclick=()=>start(p);kg.appendChild(b)})}
+q3.addEventListener('input',kl);kl();
+function start(p){
+ const N=rn(25,35),cq=shf(KQ[p.c].split('\n').map(l=>{const[t,a,...w]=l.split('|');return{t,a,o:shf([a,...w])}})),
+ qs=shf(cq.concat(Array.from({length:N-cq.length},()=>GN[rn(0,GN.length-1)]()))),v=$('kv2');let i=0,err=0;
+ $('kv1').hidden=true;v.hidden=false;$('kasb').scrollTop=0;
+ function show(){if(i>=N)return done();const q=qs[i];
+  v.innerHTML=`<div class="qz"><small style="color:var(--mute)">${p.n} · ${i+1} / ${N}</small><div class="pb"><i style="width:${i/N*100}%"></i></div><h3>${q.t}</h3>${q.o.map(o=>`<button class="op">${o}</button>`).join('')}</div>`;
+  const bs=v.querySelectorAll('.op');
+  [].forEach.call(bs,b=>b.onclick=()=>{[].forEach.call(bs,x=>{x.disabled=true;if(x.textContent===q.a)x.classList.add('ok')});if(b.textContent!==q.a){err++;b.classList.add('no')}setTimeout(()=>{i++;show()},800)})}
+ function done(){const pc=Math.round(err/N*1000)/10,T=pc<=15?['Siz bu kasbga tayyorsiz!','#2e7d4f']:pc<=25?['Ozgina tayyorlanish kerak','#b45309']:['Hali harakat qilishingiz kerak','#b3402f'];
+  v.innerHTML=`<div class="qz res"><small style="color:var(--mute)">${p.n}</small><div class="big" style="color:${T[1]}">${pc}%</div><div>xato: ${err} ta, toʻgʻri: ${N-err} ta (jami ${N} ta savol)</div><div class="vd" style="color:${T[1]}">${T[0]}</div><button class="btn" id="rt">Qayta urinish</button><button class="btn o" id="ch">Boshqa kasb tanlash</button></div>`;
+  $('rt').onclick=()=>start(p);$('ch').onclick=()=>{v.hidden=true;$('kv1').hidden=false}}
+ show()}
+
 /* ---------- 3D kitob: scroll bilan harakat ---------- */
 const bs=['#2f6f6a','#8c2f45','#1f3a6e','#c2622d','#6c4fb8'].map((c,i)=>{const n=i?$('b3').cloneNode(true):$('b3');if(i)n.removeAttribute('id');n.classList.add('b3');n.style.setProperty('--bc',c);if(i)document.body.appendChild(n);return n}),nv=$('nv'),ft=$('ft'),PI=Math.PI;
 function loop(){
-  const vh=innerHeight,vw=innerWidth,sy=scrollY,max=Math.max(1,document.documentElement.scrollHeight-vh),p=Math.min(1,Math.max(0,sy/max));
+  const vh=innerHeight,vw=innerWidth,sy=scrollY,max=Math.max(1,document.documentElement.scrollHeight-vh),p=Math.min(1,Math.max(0,sy/max)),mob=vw<700;
   const nr=nv.getBoundingClientRect(),ny=nr.top+nr.height/2+(sy>0?0:0),fd=ft.getBoundingClientRect().top+sy+52;
   const navY=10+32+(parseFloat(getComputedStyle(document.documentElement).paddingTop)||0);
   const y=navY+(fd-navY)*p-sy*p;
   const x=vw/2+Math.sin(p*PI*8)*vw*.26*Math.sin(PI*p);
   const e=Math.min(p,1-p),lie=Math.max(0,1-e*14),s=.42+1.05*Math.sin(PI*p);
-  bs.forEach((n,i)=>{const w=Math.sin(PI*p),k=Math.max(.55,Math.min(1,vw/1100)),xe=vw*(.5+(i-2)*.1),xm=vw*(.12+.19*i)+Math.sin(p*7+i*1.3)*vw*.05,bx=xe+(xm-xe)*Math.pow(w,.6),by=y+w*(i-2)*vh*.13,sc=(.5+1.45*w)*k*(.85+.08*i),sg=i%2?-1:1;n.style.transform=`translate(${bx}px,${by}px) perspective(900px) scale(${sc}) rotateX(${-16+lie*86}deg) rotateY(${sg*p*(1080+i*180)}deg) rotateZ(${(i-2)*6*lie}deg)`;n.style.zIndex=e<.03?70:1});
+  bs.forEach((n,i)=>{const w=Math.sin(PI*p),k=mob?.4:Math.max(.55,Math.min(1,vw/1100)),xe=vw*(.5+(i-2)*.1),xm=vw*(.12+.19*i)+Math.sin(p*7+i*1.3)*vw*.05,bx=xe+(xm-xe)*Math.pow(w,.6),by=y+w*(i-2)*vh*.13,sc=(.5+1.45*w)*k*(.85+.08*i),sg=i%2?-1:1;n.style.transform=`translate(${bx}px,${by}px) perspective(900px) scale(${sc}) rotateX(${-16+lie*86}deg) rotateY(${sg*p*(1080+i*180)}deg) rotateZ(${(i-2)*6*lie}deg)`;n.style.zIndex=e<.03?(mob?1:70):1;n.style.opacity=mob?Math.min(1,e*20):1});
   
   requestAnimationFrame(loop)}
 loop();
