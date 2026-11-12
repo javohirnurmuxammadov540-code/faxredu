@@ -162,6 +162,12 @@ footer{margin:60px auto 24px;position:relative;z-index:2}
   .qz{padding:16px}.qz h3{font-size:19px}
   .cnt{margin-left:0;width:100%}
 }
+/* to'liq shaffof 3D suyuq oyna kartalar (iPhone uslubi): orqadagi kitoblar ko'rinib turadi */
+.pc{background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.015) 50%,rgba(255,255,255,.1));backdrop-filter:none;-webkit-backdrop-filter:none;border:1.5px solid rgba(255,255,255,.6);transform-style:preserve-3d;box-shadow:inset 0 2px 1px rgba(255,255,255,.75),inset 0 -4px 10px rgba(255,255,255,.28),inset 3px 0 8px rgba(255,255,255,.22),inset -3px 0 8px rgba(255,255,255,.22),0 22px 44px rgba(0,0,0,.16),0 3px 0 rgba(255,255,255,.35)}
+.pc::before{background:radial-gradient(circle at var(--mx,28%) var(--my,0%),rgba(255,255,255,.4),transparent 52%),linear-gradient(115deg,rgba(255,255,255,.35),transparent 30%,transparent 72%,rgba(255,255,255,.16));opacity:.7}
+.pc:hover{box-shadow:inset 0 2px 1px rgba(255,255,255,.85),inset 0 -4px 10px rgba(255,255,255,.3),inset 3px 0 8px rgba(255,255,255,.25),inset -3px 0 8px rgba(255,255,255,.25),0 32px 56px rgba(0,0,0,.2),0 3px 0 rgba(255,255,255,.4)}
+.pc .art{transform:translateZ(38px) translate(calc(var(--nx,0)*10px),calc(var(--ny,0)*8px))}
+.pc h3,.pc p,.pc .go{transform:translateZ(22px);text-shadow:0 1px 10px var(--bg),0 0 3px var(--bg)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media print{:root{padding:0}body::before{display:none}body>*:not(#pa){display:none!important}#pa{display:block!important}#pa svg{width:100vw;height:100vh}@page{size:A4 landscape;margin:0}}
 </style>
@@ -480,6 +486,220 @@ Samolyotni havoda ushlab turuvchi kuch qaysi?|Koʻtaruvchi kuch|Ishqalanish|Magn
 Xonaga tutun toʻlsa nima qilinadi?|Pastga egilib chiqiladi|Tik turib yuriladi|Yashirinib oʻtiriladi|Deraza yopiladi
 Sudni kim olib boradi?|Sudya|Oshpaz|Haydovchi|Rassom
 Tabiatni asrash uchun nima qilish kerak?|Chiqindini tartib bilan tashlash|Daraxt kesish|Suvni isrof qilish|Oʻt yoqish`};
+
+/* har bir kasb uchun oʻz yoʻnalishidagi savollar */
+const KQP={
+"Shifokor":`Qon bosimini oʻlchaydigan asbob qaysi?|Tonometr|Termometr|Stetoskop|Spirometr
+Yurak urishini tinglash uchun qaysi asbob ishlatiladi?|Stetoskop|Mikroskop|Otoskop|Kompas
+Qandli diabetda qaysi gormon yetishmaydi?|Insulin|Adrenalin|Tiroksin|Kortizol
+Infeksiyaga qarshi kurashadigan qon hujayralari qaysilar?|Leykotsitlar|Eritrotsitlar|Trombotsitlar|Nerv hujayralari
+Bemorni koʻrikdan oʻtkazishda birinchi navbatda nima qilinadi?|Shikoyatlari soʻrab aniqlanadi|Darhol dori yoziladi|Hech narsa soʻralmaydi|Faqat narxi aytiladi
+Qon aylanishining markaziy aʼzosi qaysi?|Yurak|Jigar|Buyrak|Taloq
+Shifokorning asosiy axloqiy qoidasi qaysi?|Bemorga zarar yetkazmaslik|Tez ishlash|Koʻp dori yozish|Bemor sirini oshkor qilish`,
+"Hamshira":`Ukol qilishdan oldin nima qilinadi?|Qoʻl yuvilib, teri antiseptik bilan artiladi|Hech narsa qilinmaydi|Igna yerga tekkiziladi|Teri kirligicha qoldiriladi
+Sogʻlom odamning tana harorati taxminan necha daraja?|36,6|30|42|25
+Puls qayerdan oson sanaladi?|Bilak arteriyasidan|Tizzadan|Quloqdan|Tirsakdan
+Dori berishdan oldin nimani tekshirish shart?|Bemor, dori nomi, dozasi va muddati|Faqat rangini|Faqat narxini|Hech narsani
+Bemor hushidan ketsa birinchi navbatda nima qilinadi?|Nafas va puls tekshirilib, yordam chaqiriladi|Tashlab ketiladi|Ovqat beriladi|Hech narsa qilinmaydi
+Infeksiyaning oldini olishning eng muhim qoidasi?|Qoʻlni tez-tez yuvish|Qoʻlqopsiz ishlash|Bitta asbobni koʻp bemorga ishlatish|Niqob taqmaslik
+Jarohat toza bint bilan qanday bogʻlanadi?|Oʻrtacha siqib|Juda qattiq|Kirli matoda|Bogʻlanmaydi`,
+"Stomatolog":`Tish emalini mustahkamlovchi mineral qaysi?|Ftor|Temir|Natriy|Mis
+Sut tishlari taxminan necha yoshdan almasha boshlaydi?|6 yoshdan|1 yoshdan|20 yoshdan|40 yoshdan
+Kariyes nima?|Tish chirishi|Milk shishi|Til yarasi|Tish oqarishi
+Kattalarda nechta doimiy tish boʻladi?|32|20|16|40
+Tishni toʻgʻri yuvish davomiyligi qancha?|Kamida 2 daqiqa|5 soniya|20 soniya|1 soat
+Tish toshi nimadan hosil boʻladi?|Karashning qotishidan|Suvdan|Sutdan|Havodan
+Tish rentgeni nima uchun kerak?|Tish ildizi va ichki holatini koʻrish uchun|Rangini oʻzgartirish uchun|Tishni tozalash uchun|Ogʻriqni yoʻqotish uchun`,
+"Farmatsevt":`Dori qutisida eng muhim maʼlumotlardan biri qaysi?|Yaroqlilik muddati|Qutining rangi|Qutining oʻlchami|Rasmi
+Antibiotiklar qaysi kasalliklarga qarshi ishlatiladi?|Bakterial infeksiyalarga|Virusli shamollashga|Allergiyaga|Suyak sinishiga
+Retseptsiz sotiladigan dorilar qanday ataladi?|OTC dorilar|Narkotiklar|Zaharlar|Yadro dorilari
+Dorilar qanday joyda saqlanadi?|Quruq, salqin, bolalar yetmaydigan joyda|Quyosh nurida|Nam joyda|Yerda
+Dozа nima?|Dorining bir martalik miqdori|Dori narxi|Dori rangi|Dori nomi
+Dorini oʻzboshimchalik bilan ichish nimaga olib kelishi mumkin?|Zararli taʼsirga|Tez tuzalishga|Kuchayishga|Hech narsaga
+Vitamin C ning boy manbai qaysi?|Limon va apelsin|Non|Guruch|Yogʻ`,
+"Veterinar":`Itlarga emlash qaysi xavfli kasallikdan himoya qiladi?|Quturish|Qandli diabet|Gipertoniya|Anemiya
+Sigir qaysi guruhga kiradi?|Chaynovchi hayvonlar|Yirtqichlar|Qushlar|Sudralib yuruvchilar
+Hayvonni koʻrikdan oʻtkazishda nimaga eʼtibor beriladi?|Ishtaha, harorat, tashqi koʻrinish|Faqat ismi|Faqat rangi|Faqat yoshi
+Quturgan hayvon tishlasa nima qilinadi?|Jarohat yuvilib, darhol shifokorga murojaat qilinadi|Hech narsa qilinmaydi|Moy surtiladi|Yopib qoʻyiladi
+Qaysi hayvon sut emizuvchi?|Ot|Tovuq|Baliq|Ilon
+Hayvonlarni parazitlardan himoya qilish uchun nima qilinadi?|Antiparazitar davolash|Hech narsa|Sovuq suvda yuvish|Och qoldirish
+Hayvon kasalligining umumiy belgisi qaysi?|Holsizlik va ishtahasizlik|Quvnoqlik|Faol oʻynash|Yaxshi uxlash`,
+"Psixolog":`Psixologiya nimani oʻrganadi?|Inson ruhiyati va xulqini|Yulduzlarni|Oʻsimliklarni|Metallarni
+Stress paytida nima yordam beradi?|Chuqur nafas va dam olish|Jahl qilish|Uxlamaslik|Yolgʻizlanish
+Aktiv tinglash nima?|Suhbatdoshni diqqat bilan eshitish|Gapini boʻlish|Telefonga qarash|Darhol maslahat berish
+Mijoz sirini saqlash tamoyili qanday ataladi?|Konfidensiallik|Reklama|Reyting|Tanqid
+Empatiya nima?|Boshqaning his-tuygʻusini tushunish|Jahl|Qoʻrquv|Magʻrurlik
+Oʻsmirlik davrining xususiyati qaysi?|Mustaqillikka intilish|Gapirishni unutish|Uyquning keraksizligi|Hissiz boʻlish
+Psixolog mijozga qanday munosabatda boʻladi?|Hukm qilmasdan, hurmat bilan|Koʻrsatma berib|Mazax qilib|Beparvo`,
+"Dasturchi":`Qaysi biri dasturlash tili?|Python|Photoshop|Excel|Chrome
+“if” operatori nima uchun ishlatiladi?|Shartni tekshirish uchun|Rasm chizish uchun|Ovoz yozish uchun|Faylni oʻchirish uchun
+Massiv nima?|Qiymatlar toʻplami|Rasm|Tugma|Fayl nomi
+Koddagi xatoni topib tuzatish jarayoni qanday ataladi?|Debugging|Printing|Saving|Zooming
+HTML nimani belgilaydi?|Veb-sahifa tuzilmasini|Server quvvatini|Rasm sifatini|Internet tezligini
+Sikl (loop) nima uchun kerak?|Amalni takrorlash uchun|Faylni oʻchirish uchun|Rasm chizish uchun|Parol qoʻyish uchun
+Kod versiyalarini boshqarish tizimi qaysi?|Git|Word|Paint|Zoom`,
+"Kiberxavfsizlik mutaxassisi":`Eng ishonchli parol qaysi?|Uzun, harf, raqam va belgili|123456|Ismingiz|Telefon raqamingiz
+Fishing (phishing) nima?|Soxta xabar bilan maʼlumot oʻgʻirlash|Baliq ovlash|Dastur yangilash|Internetni tezlatish
+Ikki bosqichli autentifikatsiya nima beradi?|Qoʻshimcha himoya|Tezroq internet|Reklama|Rasm sifati
+Shubhali havolani bossangiz qanday xavf bor?|Zararli dastur tushishi|Hech qanday|Telefon tezlashishi|Batareya toʻlishi
+Antivirus dasturi nima uchun kerak?|Zararli dasturlarni aniqlash va oʻchirish uchun|Oʻyin uchun|Rasm uchun|Musiqa uchun
+Shifrlash nima?|Maʼlumotni oʻqib boʻlmas holga keltirish|Faylni oʻchirish|Nusxa olish|Rasm chizish
+Jamoat Wi-Fi tarmogʻida nima qilmaslik kerak?|Bank maʼlumotlarini kiritmaslik|Musiqa tinglamaslik|Video koʻrmaslik|Oʻyin oʻynamaslik`,
+"Elektr muhandisi":`Kuchlanish birligi qaysi?|Volt|Amper|Om|Vatt
+Tok kuchi birligi qaysi?|Amper|Volt|Joul|Metr
+Qarshilik birligi qaysi?|Om|Vatt|Volt|Amper
+Om qonuni formulasi qaysi?|I = U / R|I = U × R|I = R / U|I = U + R
+Qisqa tutashuv nima?|Zanjirda tok kuchining keskin oshishi|Chiroqning yonishi|Kuchlanishning ortishi|Simning sovishi
+Elektr tarmogʻini ortiqcha yuklanishdan nima saqlaydi?|Avtomat saqlagich|Qaychi|Mix|Tayoq
+Quvvat birligi qaysi?|Vatt|Metr|Kilogramm|Sekund`,
+"Arxitektor":`Bino chizmasining boshqacha nomi qaysi?|Reja|Qoʻshiq|Maqol|Ertak
+Masshtab nima?|Chizma oʻlchamining haqiqiy oʻlchamga nisbati|Rang|Material|Narx
+Binoning poydevori qanday vazifa bajaradi?|Butun yukni yerga uzatadi|Faqat bezak boʻladi|Derazani ushlaydi|Eshikni ochadi
+Uy loyihalashda avval nima oʻylanadi?|Vazifa va qulaylik|Faqat rang|Faqat narx|Mebel brendi
+Shaharda yashil hududlar nima uchun kerak?|Havo tozaligi va dam olish uchun|Faqat bezak uchun|Reklama uchun|Transport uchun
+Chizma uchun ishlatiladigan dastur qaysi?|AutoCAD|Telegram|Spotify|Calculator
+Zilzilabardoshlik nima?|Bino zilzilaga chidamliligi|Binoning rangi|Chiroyli koʻrinishi|Tez qurilishi`,
+"Robototexnik":`Robotning “miyasi” vazifasini qaysi qism bajaradi?|Kontroller|Gʻildirak|Batareya|Korpus
+Sensor nima qiladi?|Atrof-muhitdan maʼlumot oladi|Robotni boʻyaydi|Ovqat pishiradi|Rasm chizadi
+Motor nima uchun kerak?|Harakat hosil qilish uchun|Maʼlumot saqlash uchun|Rang berish uchun|Tovush yozish uchun
+Robot dasturi nima?|Harakat buyruqlari ketma-ketligi|Rasm|Qoʻshiq|Kitob
+Arduino nima?|Mikrokontroller platformasi|Brauzer|Oʻyin|Antivirus
+Masofani aniqlaydigan sensor qaysi?|Ultratovush sensori|Batareya|Gʻildirak|Korpus
+Robotni energiya bilan taʼminlaydigan qism qaysi?|Batareya|Sensor|Dastur|Antenna`,
+"Oʻqituvchi":`Dars maqsadi nima uchun qoʻyiladi?|Natijani aniq belgilash uchun|Bezak uchun|Vaqt oʻtkazish uchun|Hech nima uchun
+Qiynalayotgan oʻquvchiga qanday yondashiladi?|Sabr bilan qoʻshimcha tushuntiriladi|Kulib qoʻyiladi|Baho bilan qoʻrqitiladi|Eʼtibor berilmaydi
+Baholash nima uchun kerak?|Bilim darajasini aniqlash uchun|Qoʻrqitish uchun|Jazolash uchun|Vaqt oʻtkazish uchun
+Qaysi usul faol oʻqitishga kiradi?|Guruhda ishlash|Faqat yozdirish|Faqat tinglash|Uyda yotish
+Darsda intizomni saqlashning eng yaxshi yoʻli?|Aniq qoidalar va hurmat|Baqirish|Urish|Sinfdan haydash
+Oʻquvchi motivatsiyasini nima oshiradi?|Qiziqarli topshiriq va maqtov|Doimiy tanqid|Qoʻrqitish|Beparvolik
+Dars rejasida nimalar boʻladi?|Maqsad, usul, vaqt, baholash|Faqat sarlavha|Faqat rasm|Faqat uy vazifasi`,
+"Tarjimon":`Tarjimonning asosiy vazifasi qaysi?|Maʼnoni aniq yetkazish|Soʻzlarni oʻzgartirish|Tez gapirish|Qisqartirish
+Soʻzma-soʻz tarjima har doim toʻgʻrimi?|Yoʻq, maʼno buzilishi mumkin|Ha, doim|Faqat ingliz tilida|Faqat sheʼrda
+Sinxron tarjima nima?|Gapirish bilan bir vaqtda tarjima qilish|Yozma tarjima|Lugʻat|Imlo tekshiruvi
+Frazeologizm tarjimasida nimaga eʼtibor beriladi?|Maʼnosiga|Soʻz soniga|Harf soniga|Shrift turiga
+Lugʻatdan foydalanishdan maqsad?|Soʻz maʼnosini aniqlash|Rasm chizish|Hisoblash|Oʻynash
+Tarjimada uslub nima?|Matnning ifodalanish tarzi|Qogʻoz turi|Shrift rangi|Muqova
+Qaysi til oʻzbek tiliga eng yaqin?|Turk tili|Xitoy tili|Ingliz tili|Fransuz tili`,
+"Jurnalist":`Yangilik yozishda birinchi qoida qaysi?|Faktlarni tekshirish|Oʻylab topish|Shov-shuv qilish|Nusxa koʻchirish
+Intervyu nima?|Savol-javob shaklidagi suhbat|Rasm|Qoʻshiq|Jadval
+Manba nima uchun koʻrsatiladi?|Ishonchlilik uchun|Bezak uchun|Joy toʻldirish uchun|Hech nima uchun
+Sarlavha qanday boʻlishi kerak?|Qisqa, aniq va haqqoniy|Yolgʻon|Juda uzun|Maʼnosiz
+Jurnalist axloqi nimani talab qiladi?|Haqiqat va xolislikni|Shaxsiy foydani|Maqtovni|Mish-mishni
+Reportaj nima?|Voqea joyidan berilgan xabar|Qoʻshiq matni|Reklama|Reja
+Yangilikning “nima, kim, qayerda, qachon” savollari nima deb ataladi?|Asosiy savollar|Qoʻshimcha reklama|Ohang|Bezak`,
+"Kutubxonachi":`Kutubxonada kitoblar qanday tartibda joylashtiriladi?|Tasnif (katalog) boʻyicha|Tasodifiy|Rangi boʻyicha|Narxi boʻyicha
+Katalog nima?|Kitoblar roʻyxati va maʼlumoti|Kitob muqovasi|Stol|Eshik
+Kitobni qidirishda nima kerak boʻladi?|Muallif yoki nomi|Faqat rangi|Faqat vazni|Faqat narxi
+Kitoblar qanday saqlanadi?|Quruq va ehtiyotkorona|Nam joyda|Quyoshda|Yerda
+Kutubxonachi oʻquvchiga qanday yordam beradi?|Mos kitob tanlashga|Telefon tuzatishga|Ovqat pishirishga|Yoʻl qurishga
+Elektron kutubxona nima?|Raqamli kitoblar toʻplami|Qogʻoz javon|Bino|Muzey
+ISBN nima?|Kitobning xalqaro standart raqami|Muallif ismi|Nashriyot rasmi|Kitob narxi`,
+"Tarbiyachi":`Bolalar bilan muloqotda eng muhim narsa?|Mehr va sabr|Baqirish|Jazolash|Beparvolik
+Bogʻcha yoshidagi bolaning asosiy faoliyati qaysi?|Oʻyin|Hisob-kitob|Qattiq ish|Imtihon
+Bolalar xavfsizligi uchun nima qilinadi?|Doimiy nazorat|Yolgʻiz qoldirish|Koʻp soʻkish|Eʼtiborsizlik
+Bola yigʻlasa tarbiyachi nima qiladi?|Tinchlantirib, sababini aniqlaydi|Urishadi|Mazax qiladi|Eʼtibor bermaydi
+Sogʻlom ovqatlanishga kiradigan mahsulot qaysi?|Meva va sabzavot|Faqat shirinlik|Gazli ichimlik|Chips
+Bolada nutq rivojlanishiga nima yordam beradi?|Ertak oʻqish va suhbat|Sukut saqlash|Faqat telefon|Hech nima
+Bolaning mustaqilligini qanday oshirish mumkin?|Mos topshiriq berib, ishonish|Hammasini oʻzi bajarish|Qoʻrqitish|Hammasini taqiqlash`,
+"Buxgalter":`Daromad va xarajatlarni yozib boruvchi hujjat qaysi?|Hisob daftari|Rasm|Xat|Reklama
+Balans nima?|Aktiv va passiv hisobi|Rasm|Reja|Qoʻshiq
+Soliq nima?|Davlatga toʻlanadigan majburiy toʻlov|Sovgʻa|Qarz|Mukofot
+1 200 000 soʻmning 12% i qancha?|144 000|120 000|12 000|1 440 000
+Hisob-faktura nima?|Toʻlov hujjati|Rasm|Kitob|Dastur
+Aktiv nima?|Korxona mulki va boyligi|Qarz|Soliq|Maosh
+Buxgalter uchun eng muhim sifat qaysi?|Aniqlik va halollik|Shoshqaloqlik|Beparvolik|Sustkashlik`,
+"Iqtisodchi":`Talab oshib, taklif oʻzgarmasa narx nima boʻladi?|Oshadi|Tushadi|Oʻzgarmaydi|Yoʻqoladi
+Inflyatsiya nima?|Narxlarning umumiy oshishi|Narxlarning tushishi|Maoshning tugashi|Soliqning kamayishi
+YaIM nimani bildiradi?|Mamlakatda yaratilgan mahsulot qiymatini|Aholi sonini|Daryo uzunligini|Harorat darajasini
+Foiz stavkasi nima?|Kreditdan foydalanish haqi|Maosh|Soliq turi|Sovgʻa
+Import nima?|Chetdan tovar olib kirish|Chetga tovar sotish|Ishlab chiqarish|Saqlash
+Eksport nima?|Chetga tovar sotish|Chetdan tovar olish|Soliq yigʻish|Maosh toʻlash
+Iqtisodiy oʻsish nimani bildiradi?|Ishlab chiqarish koʻpayishini|Aholi kamayishini|Narx tushishini|Ish oʻrinlari yoʻqolishini`,
+"Tadbirkor":`Biznesni boshlashdan oldin nima qilinadi?|Bozor oʻrganilib reja tuziladi|Hech narsa qilinmaydi|Raqibga qaralmaydi|Pul sarflanadi
+Foyda qanday hisoblanadi?|Daromad − xarajat|Daromad + xarajat|Xarajat × 2|Soliq − foyda
+Risk nima?|Zarar koʻrish ehtimoli|Foyda|Soliq|Sovgʻa
+Mijoz nega muhim?|Daromad manbai boʻlgani uchun|Bezak uchun|Raqib boʻlgani uchun|Zarar keltirgani uchun
+Biznes-rejaga nimalar kiradi?|Maqsad, xarajat va daromad rejasi|Faqat rasm|Faqat nom|Faqat telefon
+Startap nima?|Yangi gʻoyaga asoslangan yosh kompaniya|Eski zavod|Davlat idorasi|Maktab
+Brend nima?|Mahsulotning taniqli nomi va obrazi|Faqat narx|Faqat rang|Qadoq`,
+"Marketolog":`Marketingning asosiy maqsadi nima?|Mijozni jalb qilib, sotuvni oshirish|Soliq toʻlash|Ishchi yollash|Bino qurish
+Maqsadli auditoriya nima?|Mahsulot moʻljallangan odamlar guruhi|Hamma odamlar|Raqiblar|Xodimlar
+SMM nima?|Ijtimoiy tarmoqlarda marketing|Soliq hisobi|Qurilish|Ishlab chiqarish
+Reklama samarasi nima bilan oʻlchanadi?|Natija va qiziquvchilar soni bilan|Rangi bilan|Shrifti bilan|Hajmi bilan
+Logotip nima?|Kompaniya belgisi|Narx|Soliq|Mahsulot
+USP nima?|Noyob savdo taklifi|Soliq turi|Ish jadvali|Hisobot
+Mijoz fikri nima uchun muhim?|Xizmatni yaxshilash uchun|Bezak uchun|Soliq uchun|Hech nima uchun`,
+"Bankir":`Bank omonati nima?|Pulni foiz evaziga saqlash|Pulni yoqish|Pulni yoʻqotish|Sovgʻa
+Kredit nima?|Qaytariladigan va foizli qarz|Sovgʻa|Maosh|Soliq
+Plastik karta PIN-kodi kimga aytiladi?|Hech kimga|Doʻstlarga|Telefonda bank xodimiga|Notanish odamga
+Foiz stavkasi yuqori boʻlsa kredit qanday boʻladi?|Qimmatroq|Arzonroq|Bepul|Oʻzgarmaydi
+Valyuta kursi nima?|Bir valyutaning boshqasidagi narxi|Bank manzili|Soliq|Maosh
+Bank xodimi mijoz maʼlumotiga qanday munosabatda boʻladi?|Sir saqlaydi|Hammaga aytadi|Reklama qiladi|Eʼlon qiladi
+10 000 000 soʻmga yillik 10% bilan 1 yilda qancha foiz keladi?|1 000 000|100 000|10 000|10 000 000`,
+"Grafik dizayner":`Dizaynda asosiy ranglar qaysilar?|Qizil, sariq, koʻk|Qora, oq, kulrang|Yashil, pushti, jigarrang|Faqat qora
+Raster rasm nimalardan iborat?|Piksellardan|Chiziqlardan|Matndan|Ovozdan
+Vektor grafikaning afzalligi nima?|Sifat yoʻqolmasdan kattalashadi|Piksellarga boʻlinadi|Faqat kichik boʻladi|Rangsiz boʻladi
+Yaxshi logotip qanday boʻlishi kerak?|Sodda va esda qoladigan|Murakkab va uzun|Rangi koʻp|Matni koʻp
+Tipografiya nimani oʻrganadi?|Shrift va matn joylashuvini|Ovozni|Hidni|Mazani
+Kontrast nima?|Elementlar orasidagi yorqin farq|Bir xillik|Shaffoflik|Ovoz
+Qaysi dastur dizayn uchun moʻljallangan?|Adobe Illustrator|Calculator|Notepad|Clock`,
+"Rassom":`Qizil va koʻk aralashsa qaysi rang chiqadi?|Binafsha|Yashil|Sariq|Qora
+Perspektiva nima?|Masofani tasvirlash usuli|Rang turi|Mato|Qalam
+Palitra nima?|Ranglarni aralashtirish uchun taxta|Kitob|Soat|Chelak
+Naturmort nima?|Jonsiz buyumlar tasviri|Inson portreti|Tabiat manzarasi|Haykal
+Portret nima?|Inson tasviri|Tabiat manzarasi|Meva tasviri|Bino
+Akvarel nima bilan chiziladi?|Suvda eriydigan boʻyoq|Tosh|Yogʻoch|Temir
+Kompozitsiya nima?|Rasm elementlarining joylashuvi|Rang nomi|Qogʻoz oʻlchami|Moyqalam`,
+"Musiqachi":`Musiqada nechta asosiy nota bor?|7|5|9|12
+Ritm nima?|Tovushlarning vaqt boʻyicha tartibi|Ovoz balandligi|Cholgʻu turi|Matn
+Klassik gitara necha torli?|6|3|10|12
+Dutor necha torli?|2|6|4|10
+Tempo nimani bildiradi?|Musiqa tezligini|Ovoz rangini|Notani|Cholgʻuni
+Nota yozuvi qaysi kalitdan boshlanadi?|Skripka kaliti|Eshik kaliti|Mashina kaliti|Quti kaliti
+Akkord nima?|Bir vaqtda jaranglovchi bir necha tovush|Bitta nota|Soʻz|Rasm`,
+"Fotograf":`Diafragma nimani boshqaradi?|Kiruvchi yorugʻlik miqdorini|Ovozni|Batareyani|Rangning nomini
+Ekspozitsiya tezligi juda qisqa boʻlsa harakat qanday tushadi?|Qotib qolgandek aniq|Juda xira|Rangsiz|Ikkilangan
+Kompozitsiyadagi “uchdan bir” qoidasi nima?|Obyekt chiziqlar kesishmasiga qoʻyiladi|Obyekt hamisha markazda|Obyekt kadrdan tashqarida|Obyekt tushirilmaydi
+Eng yaxshi tabiiy yorugʻlik qachon boʻladi?|Tong va kechqurun|Tush paytida doim|Tunda|Yopiq xonada
+ISO nimani bildiradi?|Yorugʻlikka sezgirlikni|Rangni|Ovozni|Hajmni
+Fokus nima?|Tasvir aniqligi|Rang|Ovoz|Hajm
+Portretda eng muhim aniq boʻlishi kerak boʻlgan qism?|Koʻzlar|Fon|Oyoq kiyim|Soya`,
+"Huquqshunos":`Qonun kimlar uchun majburiy?|Hamma uchun|Faqat amaldorlar uchun|Faqat boylar uchun|Faqat oʻqituvchilar uchun
+Konstitutsiya nima?|Davlatning asosiy qonuni|Oddiy xat|Reklama|Kitob
+Shartnoma nima?|Tomonlar kelishuvi hujjati|Rasm|Qoʻshiq|Reklama
+Sud jarayonini kim olib boradi?|Sudya|Oshpaz|Haydovchi|Rassom
+Advokatning asosiy vazifasi qaysi?|Mijoz huquqini himoya qilish|Sudlash|Jazolash|Qamash
+Aybi sud tomonidan isbotlanmaguncha shaxs nima hisoblanadi?|Aybsiz|Aybdor|Jinoyatchi|Mahkum
+Jinoyat va huquqbuzarlikni farqlovchi asosiy belgi?|Jamoat xavfi darajasi|Rangi|Joyi|Hajmi`,
+"Pilot":`Samolyotni havoda ushlab turuvchi kuch qaysi?|Koʻtaruvchi kuch|Ishqalanish|Magnit|Sovuqlik
+Uchishdan oldin pilot nimani tekshiradi?|Texnik holat va ob-havoni|Faqat rangini|Faqat salonni|Hech narsani
+Pilot dispetcher bilan nima orqali gaplashadi?|Radioaloqa|Pochta|Telegramma|Faks
+Uchish uchun eng xavfli ob-havo qaysi?|Kuchli boʻron va tuman|Quyoshli osmon|Yengil shabada|Ochiq osmon
+Balandlikni oʻlchaydigan asbob qaysi?|Altimetr|Termometr|Tarozi|Lupa
+Yoʻnalishni aniqlaydigan asbob qaysi?|Kompas|Tarozi|Termometr|Lupa
+Pilot uchun eng muhim sifat qaysi?|Sovuqqonlik va masʼuliyat|Shoshqaloqlik|Beparvolik|Gʻazab`,
+"Oshpaz":`Ovqat tayyorlashdan oldin nima qilinadi?|Qoʻl yuviladi|Qoʻl yuvilmaydi|Idish yerga qoʻyiladi|Hech narsa qilinmaydi
+Plov uchun asosiy mahsulotlar qaysilar?|Guruch, sabzi, goʻsht|Makaron va sut|Un va shakar|Choy va non
+Xom goʻsht va sabzavotni bir taxtada kesish nega xavfli?|Bakteriya oʻtishi mumkin|Chiroyli emas|Pichoq oʻtmaslashadi|Zararsiz
+Tuz koʻp solinsa taom qanday boʻladi?|Shoʻr|Shirin|Nordon|Oʻzgarmaydi
+Tez buziladigan mahsulotlar qayerda saqlanadi?|Sovutgichda|Quyoshda|Yerda|Ochiq havoda
+Goʻsht yaxshi pishganini nima koʻrsatadi?|Ichigacha pishgan boʻlishi|Rangi oq boʻlishi|Hidi yoʻqligi|Katta boʻlishi
+Oshxonada eng muhim qoida qaysi?|Tozalik va xavfsizlik|Shoshilish|Beparvolik|Baqirish`,
+"Agronom":`Oʻsimlik oʻsishi uchun nima zarur?|Suv, yorugʻlik va tuproq|Faqat qand|Faqat shamol|Faqat qorongʻilik
+Gʻoʻza qaysi turdagi ekin?|Texnik ekin|Sabzavot|Meva|Don
+Tuproq unumdorligini nima oshiradi?|Oʻgʻit va almashlab ekish|Faqat tosh|Yonish|Qum
+Tomchilatib sugʻorishning afzalligi?|Suvni tejaydi|Suvni isrof qiladi|Oʻsimlikni quritadi|Tuproqni buzadi
+Bugʻdoy qaysi ekin turiga kiradi?|Don ekini|Sabzavot|Meva|Texnik ekin
+Zararkunanda hasharotlarga qarshi nima qilinadi?|Himoya choralari koʻriladi|Eʼtibor berilmaydi|Suv quyiladi|Oʻsimlik kesiladi
+Tuproq shoʻrlanishi nima?|Tuproqda tuz koʻpayishi|Suv yetishmasligi|Shamol|Sovuq`,
+"Oʻt oʻchiruvchi":`Yongʻin chiqsa birinchi navbatda nima qilinadi?|101 ga qoʻngʻiroq qilinadi|Hech narsa qilinmaydi|Yashirinib olinadi|Kutib turiladi
+Xonaga tutun toʻlsa nima qilinadi?|Pastga egilib chiqiladi|Tik yuriladi|Yashirinib oʻtiriladi|Deraza yopiladi
+Elektr yongʻinini suv bilan oʻchirish mumkinmi?|Yoʻq, xavfli|Ha, har doim|Faqat kechasi|Faqat yozda
+Oʻt oʻchirgich nima?|Yongʻinni oʻchiruvchi qurilma|Chiroq|Isitgich|Radio
+Qaysi biri yongʻin xavfsizligi qoidasi?|Gugurtni bolalar yetmaydigan joyda saqlash|Gazni ochiq qoldirish|Simlarni ulab tashlash|Oʻt yoqib ketish
+Evakuatsiya yoʻli nima uchun kerak?|Xavfsiz chiqib ketish uchun|Bezak uchun|Savdo uchun|Reklama uchun
+Kiyimda olov tutashsa nima qilinadi?|Toʻxtab, yerga yotib, aylanish|Yugurish|Qichqirib turish|Kutish`
+};
 const rn=(a,b)=>a+Math.floor(Math.random()*(b-a+1)),shf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
 const mk=(t,ans)=>{const s=new Set([ans]);while(s.size<4){const v=ans+rn(1,9)*(Math.random()<.5?-1:1);if(v>0)s.add(v)}return{t,a:String(ans),o:shf([...s].map(String))}};
 const GN=[()=>{const a=rn(12,60),b=rn(3,9),c=rn(2,9);return mk(`${a} + ${b} × ${c} = ?`,a+b*c)},
@@ -493,8 +713,8 @@ function kl(){const q=nz(q3.value.trim()),r=KP.filter(p=>!q||nz(p.n).indexOf(q)>
  r.forEach(p=>{const b=document.createElement('button');b.className='kb';b.style.setProperty('--kc',KC[p.c][0]);b.innerHTML=`<i>${p.n[0]}</i><span>${p.n}<small>${KC[p.c][1]}</small></span>`;b.onclick=()=>start(p);kg.appendChild(b)})}
 q3.addEventListener('input',kl);kl();
 function start(p){
- const N=rn(25,35),cq=shf(KQ[p.c].split('\n').map(l=>{const[t,a,...w]=l.split('|');return{t,a,o:shf([a,...w])}})),
- qs=shf(cq.concat(Array.from({length:N-cq.length},()=>GN[rn(0,GN.length-1)]()))),v=$('kv2');let i=0,err=0;
+ const cq=shf((KQP[p.n]||KQ[p.c]).split('\n').map(l=>{const[t,a,...w]=l.split('|');return{t,a,o:shf([a,...w])}})),
+ N=cq.length,qs=cq,v=$('kv2');let i=0,err=0;
  $('kv1').hidden=true;v.hidden=false;$('kasb').scrollTop=0;
  function show(){if(i>=N)return done();const q=qs[i];
   v.innerHTML=`<div class="qz"><small style="color:var(--mute)">${p.n} · ${i+1} / ${N}</small><div class="pb"><i style="width:${i/N*100}%"></i></div><h3>${q.t}</h3>${q.o.map(o=>`<button class="op">${o}</button>`).join('')}</div>`;
@@ -514,7 +734,7 @@ function loop(){
   const y=navY+(fd-navY)*p-sy*p;
   const x=vw/2+Math.sin(p*PI*8)*vw*.26*Math.sin(PI*p);
   const e=Math.min(p,1-p),lie=Math.max(0,1-e*14),s=.42+1.05*Math.sin(PI*p);
-  bs.forEach((n,i)=>{const w=Math.sin(PI*p),k=mob?.4:Math.max(.55,Math.min(1,vw/1100)),xe=vw*(.5+(i-2)*.1),xm=vw*(.12+.19*i)+Math.sin(p*7+i*1.3)*vw*.05,bx=xe+(xm-xe)*Math.pow(w,.6),by=y+w*(i-2)*vh*.13,sc=(.5+1.45*w)*k*(.85+.08*i),sg=i%2?-1:1;n.style.transform=`translate(${bx}px,${by}px) perspective(900px) scale(${sc}) rotateX(${-16+lie*86}deg) rotateY(${sg*p*(1080+i*180)}deg) rotateZ(${(i-2)*6*lie}deg)`;n.style.zIndex=e<.03?(mob?1:70):1;n.style.opacity=mob?Math.min(1,e*20):1});
+  bs.forEach((n,i)=>{const w=Math.sin(PI*p),k=mob?.78:Math.max(.55,Math.min(1,vw/1100)),xe=vw*(.5+(i-2)*.1),xm=vw*(.12+.19*i)+Math.sin(p*7+i*1.3)*vw*.05,bx=xe+(xm-xe)*Math.pow(w,.6),by=y+w*(i-2)*vh*.13,sc=(.5+1.45*w)*k*(.85+.08*i),sg=i%2?-1:1;n.style.transform=`translate(${bx}px,${by}px) perspective(900px) scale(${sc}) rotateX(${-16+lie*86}deg) rotateY(${sg*p*(1080+i*180)}deg) rotateZ(${(i-2)*6*lie}deg)`;n.style.zIndex=e<.03?(mob?1:70):1;n.style.opacity=1});
   
   requestAnimationFrame(loop)}
 loop();
